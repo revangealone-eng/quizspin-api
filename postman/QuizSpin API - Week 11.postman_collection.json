@@ -1,0 +1,524 @@
+{
+  "info": {
+    "_postman_id": "c907e037-db77-43f6-adef-c647a1d2d185",
+    "name": "QuizSpin API - Week 11",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60017303",
+    "_collection_link": "https://go.postman.co/collection/60017303-c907e037-db77-43f6-adef-c647a1d2d185?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "1 It works",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "   pm.test(\"status is 201\", function () {\r\n     pm.response.to.have.status(201);\r\n   });\r\n   pm.collectionVariables.set(\"setId\", pm.response.json().id);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"title\": \"Philippine Literature\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "2 A field is wrong",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"title\": 5 }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "3 The body is broken",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"title\": \"x\"",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "4 Nobody",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 401\", function () {\r\n  pm.response.to.have.status(401);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}",
+            "disabled": true
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "5 The wrong role",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 403\", function () {\r\n  pm.response.to.have.status(403);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{player}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "6 List",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "7 Read one",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n}); "
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/{{setId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "{{setId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "8 It does not exist",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 404\", function () {\r\n  pm.response.to.have.status(404);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "999"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "9 The id is not a number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/abc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "abc"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "10 Update",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"title\": \"Updated title\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/{{setId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "{{setId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "11 Not the owner",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 403\", function () {\r\n  pm.response.to.have.status(403);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{otherHost}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \"title\": \"Hijacked title\" }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/{{setId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "{{setId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "12 Nothing to change",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{ }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/{{setId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "{{setId}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "13 Delete",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"status is 204\", function () {\r\n  pm.response.to.have.status(204);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "X-Demo-User",
+            "value": "{{host}}"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/question-sets/{{setId}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "question-sets",
+            "{{setId}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "host",
+      "value": ""
+    },
+    {
+      "key": "otherHost",
+      "value": ""
+    },
+    {
+      "key": "player",
+      "value": ""
+    },
+    {
+      "key": "setId",
+      "value": ""
+    }
+  ]
+}
