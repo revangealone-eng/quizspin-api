@@ -52,11 +52,23 @@ npm run dev
 
 Base URL: `http://localhost:3001/api/v1`
 
-| Method | Path | Purpose | Success |
-|---|---|---|---|
-| GET | /health | Is the API up and can it reach the database? | 200 (503 when the database is down) |
-| GET | /game-info | Slug, name, group, developer, description, player limits, version | 200 |
-| GET | /results | Finished games, every player, and the top 3. Needs the `X-Hub-Key` header. Optional `?since=` | 200 (401 without the key) |
+Until login arrives in Week 12, the caller says who they are with the header `X-Demo-User: <school ID>`.
+
+| Method | Path | Who may call it | Purpose | Success |
+|---|---|---|---|---|
+| GET | /health | Anyone | Is the API up and can it reach the database? | 200 (503 when the database is down) |
+| GET | /game-info | Anyone | Slug, name, group, developer, description, player limits, version | 200 |
+| GET | /results | The Library Game Hub (`X-Hub-Key` header) | Finished games, every player, and the top 3. Optional `?since=` | 200 (401 without the key) |
+| GET | /question-sets | A host | List your own question sets | 200 |
+| POST | /question-sets | A host | Create a question set; the owner is the caller | 201 |
+| GET | /question-sets/{id} | The host who owns it | Read one question set | 200 |
+| PATCH | /question-sets/{id} | The host who owns it | Change the title or description | 200 |
+| DELETE | /question-sets/{id} | The host who owns it | Delete a question set that no game used | 204 |
+| POST | /sessions | The host who owns the question set | Start a game; the server makes the six-digit code | 201 |
+| GET | /sessions/{code} | Anyone | Read one game by its code | 200 |
+| PATCH | /sessions/{code} | The host of that game | Change the status (waiting, active, completed) if the change is allowed | 200 |
+| POST | /sessions/{code}/players | Any account | Join a game, or rejoin it and get the same seat | 201 (new seat), 200 (rejoin) |
+| GET | /sessions/{code}/players | Anyone | List nicknames and scores | 200 |
 
 ## What "completed" means in my game
 
