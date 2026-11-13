@@ -12,493 +12,130 @@
       "item": [
         {
           "name": "1 Start a game",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 201\", function () {\r\n     pm.response.to.have.status(201);\r\n   });\r\n   pm.collectionVariables.set(\"code\", pm.response.json().code);"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 201\", function () {", "  pm.response.to.have.status(201);", "});", "pm.collectionVariables.set(\"code\", pm.response.json().code);"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"question_set_id\": 1 }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "body": { "mode": "raw", "raw": "{ \"question_set_id\": 1 }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions", "host": ["{{baseUrl}}"], "path": ["sessions"] }
           },
           "response": []
         },
         {
           "name": "2 A player tries to start a game",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 403\", function () {\r\n     pm.response.to.have.status(403);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 403\", function () {", "  pm.response.to.have.status(403);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{player}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"question_set_id\": 1 }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player}}" }],
+            "body": { "mode": "raw", "raw": "{ \"question_set_id\": 1 }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions", "host": ["{{baseUrl}}"], "path": ["sessions"] }
           },
           "response": []
         },
         {
           "name": "3 Read the game",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 200\", function () {\r\n     pm.response.to.have.status(200);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}"] }
           },
           "response": []
         },
         {
           "name": "4 A code that is not six digits",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 400\", function () {\r\n     pm.response.to.have.status(400);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/sessions/12345",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "12345"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "url": { "raw": "{{baseUrl}}/sessions/12345", "host": ["{{baseUrl}}"], "path": ["sessions", "12345"] }
           },
           "response": []
         },
         {
           "name": "5 A code that no game uses",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 404\", function () {\r\n     pm.response.to.have.status(404);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 404\", function () {", "  pm.response.to.have.status(404);", "});"] } }],
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "url": {
-              "raw": "{{baseUrl}}/sessions/999999",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "999999"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "url": { "raw": "{{baseUrl}}/sessions/999999", "host": ["{{baseUrl}}"], "path": ["sessions", "999999"] }
           },
           "response": []
         },
         {
           "name": "6 A player joins",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 201\", function () {\r\n     pm.response.to.have.status(201);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 201\", function () {", "  pm.response.to.have.status(201);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{player}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"nickname\": \"Alpha1\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}/players",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}",
-                "players"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player}}" }],
+            "body": { "mode": "raw", "raw": "{ \"nickname\": \"Alpha1\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}/players", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}", "players"] }
           },
           "response": []
         },
         {
           "name": "7 The same player joins again",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 200\", function () {\r\n     pm.response.to.have.status(200);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{player}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"nickname\": \"Alpha1\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}/players",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}",
-                "players"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player}}" }],
+            "body": { "mode": "raw", "raw": "{ \"nickname\": \"Alpha1\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}/players", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}", "players"] }
           },
           "response": []
         },
         {
           "name": "8 A second player takes a used nickname",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 409\", function () {\r\n     pm.response.to.have.status(409);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 409\", function () {", "  pm.response.to.have.status(409);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{player2}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"nickname\": \"Alpha1\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}/players",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}",
-                "players"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player2}}" }],
+            "body": { "mode": "raw", "raw": "{ \"nickname\": \"Alpha1\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}/players", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}", "players"] }
           },
           "response": []
         },
         {
           "name": "9 A nickname that is too short",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 400\", function () {\r\n     pm.response.to.have.status(400);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{player2}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"nickname\": \"A\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}/players",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}",
-                "players"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player2}}" }],
+            "body": { "mode": "raw", "raw": "{ \"nickname\": \"A\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}/players", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}", "players"] }
           },
           "response": []
         },
         {
           "name": "10 The host starts the game",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 200\", function () {\r\n     pm.response.to.have.status(200);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
           "request": {
             "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"status\": \"active\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "body": { "mode": "raw", "raw": "{ \"status\": \"active\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}"] }
           },
           "response": []
         },
         {
           "name": "11 A new player joins too late",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 409\", function () {\r\n     pm.response.to.have.status(409);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 409\", function () {", "  pm.response.to.have.status(409);", "});"] } }],
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "2099-0003"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"nickname\": \"Bravo1\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}/players",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}",
-                "players"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{player2}}" }],
+            "body": { "mode": "raw", "raw": "{ \"nickname\": \"Bravo1\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}/players", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}", "players"] }
           },
           "response": []
         },
         {
           "name": "12 A status change that is not allowed",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "type": "text/javascript",
-                "exec": [
-                  "   pm.test(\"status is 409\", function () {\r\n     pm.response.to.have.status(409);\r\n   });"
-                ]
-              }
-            }
-          ],
+          "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 409\", function () {", "  pm.response.to.have.status(409);", "});"] } }],
           "request": {
             "method": "PATCH",
-            "header": [
-              {
-                "key": "X-Demo-User",
-                "value": "{{host}}"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "   { \"status\": \"active\" }",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{baseUrl}}/sessions/{{code}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "sessions",
-                "{{code}}"
-              ]
-            }
+            "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+            "body": { "mode": "raw", "raw": "{ \"status\": \"active\" }", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/sessions/{{code}}", "host": ["{{baseUrl}}"], "path": ["sessions", "{{code}}"] }
           },
           "response": []
         }
@@ -506,524 +143,148 @@
     },
     {
       "name": "1 It works",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "   pm.test(\"status is 201\", function () {\r\n     pm.response.to.have.status(201);\r\n   });\r\n   pm.collectionVariables.set(\"setId\", pm.response.json().id);"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 201\", function () {", "  pm.response.to.have.status(201);", "});", "pm.collectionVariables.set(\"setId\", pm.response.json().id);"] } }],
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n    \"title\": \"Philippine Literature\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "body": { "mode": "raw", "raw": "{ \"title\": \"Philippine Literature\" }", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "2 A field is wrong",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{ \"title\": 5 }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "body": { "mode": "raw", "raw": "{ \"title\": 5 }", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "3 The body is broken",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
       "request": {
         "method": "POST",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{ \"title\": \"x\"",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "body": { "mode": "raw", "raw": "{ \"title\": \"x\"", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "4 Nobody",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 401\", function () {\r\n  pm.response.to.have.status(401);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 401\", function () {", "  pm.response.to.have.status(401);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}",
-            "disabled": true
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}", "disabled": true }],
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "5 The wrong role",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 403\", function () {\r\n  pm.response.to.have.status(403);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 403\", function () {", "  pm.response.to.have.status(403);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{player}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{player}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "6 List",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets", "host": ["{{baseUrl}}"], "path": ["question-sets"] }
       },
       "response": []
     },
     {
       "name": "7 Read one",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n}); "
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/{{setId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "{{setId}}"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets/{{setId}}", "host": ["{{baseUrl}}"], "path": ["question-sets", "{{setId}}"] }
       },
       "response": []
     },
     {
       "name": "8 It does not exist",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 404\", function () {\r\n  pm.response.to.have.status(404);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 404\", function () {", "  pm.response.to.have.status(404);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/999",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "999"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets/999", "host": ["{{baseUrl}}"], "path": ["question-sets", "999"] }
       },
       "response": []
     },
     {
       "name": "9 The id is not a number",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
       "request": {
         "method": "GET",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/abc",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "abc"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets/abc", "host": ["{{baseUrl}}"], "path": ["question-sets", "abc"] }
       },
       "response": []
     },
     {
       "name": "10 Update",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 200\", function () {\r\n  pm.response.to.have.status(200);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 200\", function () {", "  pm.response.to.have.status(200);", "});"] } }],
       "request": {
         "method": "PATCH",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{ \"title\": \"Updated title\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/{{setId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "{{setId}}"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "body": { "mode": "raw", "raw": "{ \"title\": \"Updated title\" }", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets/{{setId}}", "host": ["{{baseUrl}}"], "path": ["question-sets", "{{setId}}"] }
       },
       "response": []
     },
     {
       "name": "11 Not the owner",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 403\", function () {\r\n  pm.response.to.have.status(403);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 403\", function () {", "  pm.response.to.have.status(403);", "});"] } }],
       "request": {
         "method": "PATCH",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{otherHost}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{ \"title\": \"Hijacked title\" }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/{{setId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "{{setId}}"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{otherHost}}" }],
+        "body": { "mode": "raw", "raw": "{ \"title\": \"Hijacked title\" }", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets/{{setId}}", "host": ["{{baseUrl}}"], "path": ["question-sets", "{{setId}}"] }
       },
       "response": []
     },
     {
       "name": "12 Nothing to change",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 400\", function () {\r\n  pm.response.to.have.status(400);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 400\", function () {", "  pm.response.to.have.status(400);", "});"] } }],
       "request": {
         "method": "PATCH",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "body": {
-          "mode": "raw",
-          "raw": "{ }",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/{{setId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "{{setId}}"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "body": { "mode": "raw", "raw": "{ }", "options": { "raw": { "language": "json" } } },
+        "url": { "raw": "{{baseUrl}}/question-sets/{{setId}}", "host": ["{{baseUrl}}"], "path": ["question-sets", "{{setId}}"] }
       },
       "response": []
     },
     {
       "name": "13 Delete",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"status is 204\", function () {\r\n  pm.response.to.have.status(204);\r\n});"
-            ]
-          }
-        }
-      ],
+      "event": [{ "listen": "test", "script": { "type": "text/javascript", "exec": ["pm.test(\"status is 204\", function () {", "  pm.response.to.have.status(204);", "});"] } }],
       "request": {
         "method": "DELETE",
-        "header": [
-          {
-            "key": "X-Demo-User",
-            "value": "{{host}}"
-          }
-        ],
-        "url": {
-          "raw": "{{baseUrl}}/question-sets/{{setId}}",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "question-sets",
-            "{{setId}}"
-          ]
-        }
+        "header": [{ "key": "X-Demo-User", "value": "{{host}}" }],
+        "url": { "raw": "{{baseUrl}}/question-sets/{{setId}}", "host": ["{{baseUrl}}"], "path": ["question-sets", "{{setId}}"] }
       },
       "response": []
     }
   ],
   "variable": [
-    {
-      "key": "baseUrl",
-      "value": ""
-    },
-    {
-      "key": "host",
-      "value": ""
-    },
-    {
-      "key": "otherHost",
-      "value": ""
-    },
-    {
-      "key": "player",
-      "value": ""
-    },
-    {
-      "key": "setId",
-      "value": ""
-    },
-    {
-      "key": "player2",
-      "value": ""
-    },
-    {
-      "key": "code",
-      "value": ""
-    }
+    { "key": "baseUrl", "value": "http://localhost:3001/api/v1" },
+    { "key": "host", "value": "2099-0001" },
+    { "key": "otherHost", "value": "2099-0007" },
+    { "key": "player", "value": "2099-0002" },
+    { "key": "setId", "value": "" },
+    { "key": "player2", "value": "2099-0003" },
+    { "key": "code", "value": "" }
   ]
 }
